@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic_Tac_Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main id="root">
+        <header>
+            <!-- <h1>Tic Tac Toe</h1> -->
+        </header>
+
+        <section class="playerSelectionArea">
+            <span>First player : </span>
+            <select name="" id="selectedPlayer">
+                <option value="X">X</option>
+                <option value="O">O</option>
+            </select>
+        </section>
+
+        <main id="board">
+            <button style="border-top-left-radius: 0.28rem;" id="1" class="cell"> </button>
+            <button id="2" class="cell"> </button>
+            <button style="border-top-right-radius: 0.28rem;" id="3" class="cell"> </button>
+            <button id="4" class="cell"> </button>
+            <button id="5" class="cell"> </button>
+            <button id="6" class="cell"> </button>
+            <button style="border-bottom-left-radius: 0.28rem;" id="7" class="cell"> </button>
+            <button id="8" class="cell"> </button>
+            <button style="border-bottom-right-radius: 0.28rem;" id="9" class="cell"> </button>
+        </main>
+
+        <select onchange="changePlayerSelectionOptions(this.value)" name="" id="gameTypes">
+            <option selected value="play-with-friend">Play with Friend</option>
+            <option value="play-with-computer">Play with Computer</option>
+        </select>
+        <button class="button" id="startGameBtn">Start Game</button>
+    </main>
+</body>
+<script src="script.js">
+
+</script>
+
+</html>

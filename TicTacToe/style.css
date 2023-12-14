@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    user-select: none;
+    font-family: 'Ubuntu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background-image: url('https://wallpapercave.com/wp/wp2708234.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* filter: blur(0.2px); */
+    background-position: center;
+    color: snow;
+    flex-direction: column;
+}
+
+#board {
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    background: black;
+}
+
+.playerSelectionArea {
+    font-size: larger;
+    transform: translate(60.5px, -40px);
+}
+
+/* Javascript created Elements */
+.messageArea {
+    margin-top: 2rem;
+    font-size: larger;
+}
+
+/*  */
+.playerSelectionArea select:focus {
+    outline: none;
+    font-family: 'Ubuntu';
+}
+
+.cell {
+    height: 100px;
+    width: 100px;
+    /* border: 1.2px solid #f75151; */
+}
+
+#gameTypes {
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+    padding-top: .25rem;
+    padding-inline: .25rem;
+    padding-bottom: .26rem;
+    text-align: center;
+    font-weight: 500;
+    border-radius: .55rem;
+    box-shadow: 0 0 10px rgb(41, 174, 227);
+    font-family: 'Ubuntu';
+}
+
+header h1 {
+    margin-bottom: 3.5rem;
+}
+
+.button {
+    font-size: 1.28rem;
+    cursor: pointer;
+    font-weight: 400;
+    border-radius: .6rem;
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-inline: .8rem;
+    padding-top: .2rem;
+    padding-bottom: .22rem;
+    font-family: 'Ubuntu';
+    border: none;
+    text-shadow: 0 0 2px snow;
+    box-shadow: 0 0 10px rgb(48, 154, 196);
+}
+
+#startGameBtn {
+    margin-top: 1.8rem;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.cell {
+    cursor: pointer;
+    font-weight: 600;
+    /* color: #1855e3; */
+    color: red;
+    font-size: 40px;
+    text-shadow: 0 0 5px blue;
+    background-image: url('https://media.istockphoto.com/id/1302249083/video/bright-red-light-neon-frame-on-black-background-abstract-digital-3d-rendering-4k-video.jpg?s=480x480&k=20&c=jhDk_7lYyYmN6jFSgt5PVnsfuNb3yu2zEMGwUTOXhGY=');
+    background-color: orange;
+    border: .01px solid blue;
+    filter: brightness(1.2);
+    box-shadow: 0px 0px 12px rgb(255, 32, 32);
+}
+
+.cell:active {
+    transform: scale(0.965, 0.975);
+}
