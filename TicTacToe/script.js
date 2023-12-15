@@ -11,6 +11,7 @@ const selectedPlayer = document.getElementById('selectedPlayer')
 let currPlayer;
 let _board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 let messageArea;
+let gameType;
 
 function changePlayerSelectionOptions(value){
     if(value == 'play-with-friend'){
@@ -67,7 +68,11 @@ function clearMessages() {
 }
 
 function changePlayer() {
-    currPlayer = (currPlayer == 'X') ? 'O' : 'X';
+    if(gameType == 'play-with-friend'){
+        currPlayer = (currPlayer == 'X') ? 'O' : 'X';
+    }else{
+        currPlayer = (currPlayer == 'X') ? 'COMPUTER' : 'X';
+    }
 }
 
 function handleBoardClick(event) {
@@ -77,12 +82,15 @@ function handleBoardClick(event) {
     }
 
     clearMessages()
-    event.target.innerText = `${currPlayer}`;
+    if(currPlayer == 'COMPUTER')
+        event.target.innerText = `${'O'}`;
+    else
+        event.target.innerText = `${currPlayer}`;
 
     _board[Math.floor((parseInt(event.target.id)-1)/3)][(parseInt(event.target.id)-1)%3] = `${currPlayer}`
 }
 
-function endGame(gameType) {
+function endGame() {
     if(gameType == 'play-with-friend')
         board.removeEventListener('click',handlerForFriend)
     else
@@ -111,16 +119,31 @@ function getRandomMove(){
         randomMove = Math.floor(Math.random() * 9)
         if(randomMove == 0) randomMove++
     }while(!isCellEmpty(board.children[randomMove]))
-
+    return randomMove;
 }
 
 function handlerForComputer(clickEvent) {
-    console.log('In comp handler');
-
+    if(currPlayer == 'COMPUTER'){
+        let move = getRandomMove()
+        
+    }
+    if(checkWin() == true){
+        if(currPlayer == 'COMPUTER')
+            showMessage(`Game Over : Computer Won !`)
+        else
+            showMessage(`Game Over : You Won !`);
+        endGame()
+    }
+    if(!hasFreeSpaces()){
+        showMessage('Game Over : Draw !');
+        endGame()
+    }
+    changePlayer()
 }
 
 function refreshVariables() {
     console.log('Refresh inside');
+    gameType = gameTypes.value;
     // Empty Board
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
