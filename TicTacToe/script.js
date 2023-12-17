@@ -5,13 +5,14 @@ const startGameBtn = document.getElementById('startGameBtn')
 const gameTypes = document.getElementById('gameTypes')
 const selectedPlayer = document.getElementById('selectedPlayer')
 
-//TODO : Complete the handlerForComputer function
+//TODO : Add a time delay when the computer plays and add a loading kindof animation
 
 //   <--- Global Variables --->
 let currPlayer;
 let _board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 let messageArea;
 let gameType;
+let isGameEnded;
 
 function changePlayerSelectionOptions(value){
     if(value == 'play-with-friend'){
@@ -19,7 +20,7 @@ function changePlayerSelectionOptions(value){
         <option value="O">O</option>`;
     }else{
         selectedPlayer.innerHTML = `<option value="X">X</option>
-        <option value="Computer">Computer</option>`
+        <option value="COMPUTER">Computer</option>`
     }
 }
 
@@ -82,10 +83,12 @@ function handleBoardClick(event) {
     }
 
     clearMessages()
-    if(currPlayer == 'COMPUTER')
-        event.target.innerText = `${'O'}`;
-    else
+    if(gameType == 'play-with-friend'){
         event.target.innerText = `${currPlayer}`;
+    }else if(gameType == 'play-with-computer'){
+        if(currPlayer == 'X') event.target.innerText = 'X'
+        else event.target = 'O'
+    }
 
     _board[Math.floor((parseInt(event.target.id)-1)/3)][(parseInt(event.target.id)-1)%3] = `${currPlayer}`
 }
@@ -97,6 +100,7 @@ function endGame() {
         board.removeEventListener('click',handlerForComputer)
 
     startGameBtn.innerText = `Restart Game`
+    isGameEnded = true
     showEnvironment()
 }
 
@@ -117,25 +121,45 @@ function getRandomMove(){
     let randomMove;
     do{
         randomMove = Math.floor(Math.random() * 9)
-        if(randomMove == 0) randomMove++
-    }while(!isCellEmpty(board.children[randomMove]))
+    }while(!isCellEmpty(board.children[randomMove]));
+
     return randomMove;
 }
 
+function makeComputerMove(){
+    let move = getRandomMove()
+    _board[Math.floor((move)/3)][(move)%3] = 'O';
+    board.children[move].innerText = 'O';
+}
+
 function handlerForComputer(clickEvent) {
-    if(currPlayer == 'COMPUTER'){
-        let move = getRandomMove()
-        
-    }
-    if(checkWin() == true){
-        if(currPlayer == 'COMPUTER')
+    handleBoardClick(clickEvent)
+    if(checkWin() == true && isGameEnded == false){
+        if(currPlayer == 'COMPUTER'){
             showMessage(`Game Over : Computer Won !`)
-        else
+        }
+        else{
             showMessage(`Game Over : You Won !`);
+        }
         endGame()
     }
-    if(!hasFreeSpaces()){
+
+    changePlayer()
+
+    if(hasFreeSpaces() && isGameEnded == false){
+        makeComputerMove()
+    }
+    else if(hasFreeSpaces() == false){
         showMessage('Game Over : Draw !');
+        endGame()
+    }
+    if(checkWin() == true && isGameEnded == false){
+        if(currPlayer == 'COMPUTER'){
+            showMessage(`Game Over : Computer Won !`)
+        }
+        else{
+            showMessage(`Game Over : You Won !`);
+        }
         endGame()
     }
     changePlayer()
@@ -144,6 +168,7 @@ function handlerForComputer(clickEvent) {
 function refreshVariables() {
     console.log('Refresh inside');
     gameType = gameTypes.value;
+    isGameEnded = false;
     // Empty Board
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -173,6 +198,10 @@ function startGame(gameType) {
         board.addEventListener('click', handlerForFriend)
     }
     else if(gameType == 'play-with-computer'){
+        if(currPlayer == 'COMPUTER'){
+            makeComputerMove()
+            changePlayer()
+        }
         board.addEventListener('click', handlerForComputer)
     }
 }
